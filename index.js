@@ -1,4 +1,9 @@
-const fs = require('fs/promises');
+import fs from 'fs/promises';
+
+import BlowfishContext from './parser/blowfish/index.js';
+import * as prs from './parser/prs.js';
+import * as struct from './parser/struct/index.js';
+import sarSchema from './parser/sarstruct.js';
 
 fs.readFile('./sar-examples/IoBlush.sar')
   .then(processSarBuffer)
@@ -19,6 +24,7 @@ function processSarBuffer(buffer) {
 
   u8view = u8view.slice(4, buffer.byteLength);
   let keyBuffer = Uint8Array.of(0x09, 0x07, 0xc1, 0x2b).buffer;
+  let context = new BlowfishContext(u8view.buffer);
 
-  console.log(keyBuffer);
+  console.log(context);
 }
