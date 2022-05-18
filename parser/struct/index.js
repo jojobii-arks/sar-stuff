@@ -27,7 +27,6 @@ const baseRegistry = {
  * @returns {Object} parsed struct
  */
 function parse(buffer, schema, registries = []) {
-  console.log(schema);
   let cursor = new Cursor(buffer);
   let registry = [baseRegistry]
     .concat(registries)
