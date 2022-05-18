@@ -1,10 +1,10 @@
-import Cursor from './cursor.js';
+const Cursor = require('./cursor');
 
 /**
  * @param {ArrayBuffer} buffer buffer to decompress
  * @return {ArrayBuffer} decompressed output
  */
-export function decompress(buffer) {
+function decompress(buffer) {
   let readCursor = new Cursor(buffer);
   let writeCursor = new Cursor();
 
@@ -65,3 +65,5 @@ export function decompress(buffer) {
 
   return writeCursor.buffer.slice(0, writeCursor.pos);
 }
+
+module.exports = { decompress };

@@ -1,4 +1,6 @@
-import { P_TABLE, S_TABLE } from './consts.js';
+// import  from './consts.js';
+
+const { P_TABLE, S_TABLE } = require('./consts');
 
 function roundFunction(s, x) {
   let a = s[0][x >>> 24];
@@ -9,7 +11,7 @@ function roundFunction(s, x) {
   return ret >>> 0;
 }
 
-export class BlowfishContext {
+module.exports = class BlowfishContext {
   /**
    * construct a blowfish context
    * @param {ArrayBuffer} key key as array of bytes. must be multiple of 4
@@ -98,6 +100,4 @@ export class BlowfishContext {
       view.setUint32(i * 8 + 4, l, true);
     }
   }
-}
-
-export default BlowfishContext;
+};

@@ -1,4 +1,4 @@
-export class Cursor {
+class Cursor {
   constructor(buffer) {
     this.buffer = buffer || new ArrayBuffer(64);
     this.dataView = new DataView(this.buffer);
@@ -130,10 +130,14 @@ export class Cursor {
 
   seek(offset) {
     if (this.pos + offset > this.buffer.byteLength || this.pos + offset < 0) {
-      throw new Error(`invalid seek to ${this.pos + offset} (by ${offset}) on buffer of length ${this.buffer.byteLength}`);
+      throw new Error(
+        `invalid seek to ${
+          this.pos + offset
+        } (by ${offset}) on buffer of length ${this.buffer.byteLength}`
+      );
     }
     this.pos += offset;
   }
 }
 
-export default Cursor;
+module.exports = Cursor;

@@ -1,6 +1,6 @@
 // Struct parsing
 
-import Cursor from '../cursor.js';
+const Cursor = require('../cursor');
 
 const baseRegistry = {
   u8: cursor => cursor.readUint8(),
@@ -26,7 +26,7 @@ const baseRegistry = {
  * @param {Object[]} registries registries of schemas or parsers to use (including base registry)
  * @returns {Object} parsed struct
  */
-export function parse(buffer, schema, registries = []) {
+function parse(buffer, schema, registries = []) {
   let cursor = new Cursor(buffer);
   let registry = [baseRegistry]
     .concat(registries)
@@ -35,7 +35,7 @@ export function parse(buffer, schema, registries = []) {
   return parseWithCursor(cursor, schema, registry);
 }
 
-export function parseWithCursor(cursor, schema, registry) {
+function parseWithCursor(cursor, schema, registry) {
   switch (typeof schema) {
     case 'string': {
       // References a schema/parser in the registry
@@ -57,3 +57,5 @@ export function parseWithCursor(cursor, schema, registry) {
     }
   }
 }
+
+module.exports = { parse, parseWithCursor };

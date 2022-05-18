@@ -1,11 +1,13 @@
-import * as struct from './struct/index.js';
+// import * as struct from './struct/index.js';
 
-export const pointSchema = {
+const struct = require('./struct/index');
+
+const pointSchema = {
   x: 'u8',
   y: 'u8'
 };
 
-export const layerSchema = {
+const layerSchema = {
   points: {
     topLeft: pointSchema,
     bottomLeft: pointSchema,
@@ -41,7 +43,7 @@ export const layerSchema = {
   }
 };
 
-export const schema = (cursor, registry) => {
+const schema = (cursor, registry) => {
   let authorId = struct.parseWithCursor(cursor, 'u32le', registry);
   let layerCount = struct.parseWithCursor(cursor, 'u8', registry);
   let sizeHeight = struct.parseWithCursor(cursor, 'u8', registry);
@@ -80,4 +82,4 @@ export const schema = (cursor, registry) => {
   };
 };
 
-export default schema;
+module.exports = { pointSchema, layerSchema, schema };
