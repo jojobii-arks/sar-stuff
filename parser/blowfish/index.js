@@ -11,7 +11,7 @@ function roundFunction(s, x) {
   return ret >>> 0;
 }
 
-module.exports = class BlowfishContext {
+class BlowfishContext {
   /**
    * construct a blowfish context
    * @param {ArrayBuffer} key key as array of bytes. must be multiple of 4
@@ -100,4 +100,6 @@ module.exports = class BlowfishContext {
       view.setUint32(i * 8 + 4, l, true);
     }
   }
-};
+}
+
+module.exports = { BlowfishContext };

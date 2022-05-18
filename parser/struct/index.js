@@ -1,6 +1,6 @@
 // Struct parsing
 
-const Cursor = require('../cursor');
+const { Cursor } = require('../cursor');
 
 const baseRegistry = {
   u8: cursor => cursor.readUint8(),
@@ -27,6 +27,7 @@ const baseRegistry = {
  * @returns {Object} parsed struct
  */
 function parse(buffer, schema, registries = []) {
+  console.log(schema);
   let cursor = new Cursor(buffer);
   let registry = [baseRegistry]
     .concat(registries)

@@ -43,7 +43,7 @@ const layerSchema = {
   }
 };
 
-const schema = (cursor, registry) => {
+const sarSchema = (cursor, registry) => {
   let authorId = struct.parseWithCursor(cursor, 'u32le', registry);
   let layerCount = struct.parseWithCursor(cursor, 'u8', registry);
   let sizeHeight = struct.parseWithCursor(cursor, 'u8', registry);
@@ -82,4 +82,4 @@ const schema = (cursor, registry) => {
   };
 };
 
-module.exports = { pointSchema, layerSchema, schema };
+module.exports = { pointSchema, layerSchema, sarSchema };

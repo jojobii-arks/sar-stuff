@@ -1,4 +1,4 @@
-const Cursor = require('./cursor');
+const { Cursor } = require('./cursor');
 
 /**
  * @param {ArrayBuffer} buffer buffer to decompress

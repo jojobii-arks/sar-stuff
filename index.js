@@ -1,9 +1,9 @@
 const fs = require('fs/promises');
 
-const BlowfishContext = require('./parser/blowfish');
+const { BlowfishContext } = require('./parser/blowfish');
 const struct = require('./parser/struct');
 const prs = require('./parser/prs');
-const sarSchema = require('./parser/sarstruct');
+const { sarSchema } = require('./parser/sarstruct');
 
 const renderer = require('./renderer');
 
@@ -19,10 +19,11 @@ let result;
 fs.readFile('./sar-examples/IoBlush.sar')
   .then(buffer => {
     result = processSarBuffer(buffer);
+    console.log(result);
   })
-  .then(() =>
-    fs.writeFile('./output/io-blush-data.json', JSON.stringify(result, null, 2))
-  )
+  // .then(() =>
+  //   fs.writeFile('./output/io-blush-data.json', JSON.stringify(result, null, 2))
+  // )
   .catch(err => console.error(err));
 
 function processSarBuffer(buffer) {
@@ -47,6 +48,7 @@ function processSarBuffer(buffer) {
       u8view = u8view.map(v => v ^ 0x95);
       resultBuffer = prs.decompress(u8view.buffer);
     }
+    console.log(resultBuffer);
     let parsed = struct.parse(resultBuffer, sarSchema);
     return parsed;
   } catch (err) {
