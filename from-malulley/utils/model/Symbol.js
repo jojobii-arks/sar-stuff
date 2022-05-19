@@ -32,6 +32,10 @@
 const Layer = require('./Layer');
 const Parallelogram = require('./Parallelogram');
 const Size = require('./Size');
+const Opacity = require('./Opacity');
+const Asset = require('./Asset');
+const Color = require('./Color');
+const Origin = require('./Origin');
 
 module.exports = class Symbol extends Layer {
   static minimumSize = 4;

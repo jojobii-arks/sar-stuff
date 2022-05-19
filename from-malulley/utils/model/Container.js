@@ -30,6 +30,7 @@
  */
 
 const Layer = require('./Layer');
+const SymbolArt = require('./SymbolArt');
 
 module.exports = class Container extends Layer {
   static maximumDepth = 5;

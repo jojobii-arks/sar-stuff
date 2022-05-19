@@ -11,6 +11,6 @@ fsp
     });
   })
   .then(() => {
-    console.log(symbolArt);
+    console.log(symbolArt.layers);
   })
   .catch(console.error);

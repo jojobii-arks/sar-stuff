@@ -39,6 +39,7 @@ const SoundOption = require('./model/SoundOption');
 const SymbolArtType = require('./model/SymbolArtType');
 const SymbolArt = require('./model/SymbolArt');
 const Symbol = require('./model/Symbol');
+const Origin = require('./model/Origin');
 
 module.exports = class SARFileUtils {
   static _headerType = 'sar';
@@ -129,7 +130,6 @@ module.exports = class SARFileUtils {
       let symbolArt = SARFileUtils._convertToSymbolArt({
         fileContent: fileContent
       });
-      return symbolArt;
     } catch (e) {
       console.error(e);
     }
@@ -202,9 +202,9 @@ module.exports = class SARFileUtils {
       symbol.asset.index = properties.textureIndex;
       symbol.opacity.index = properties.transparency;
       symbol.isHidden = !properties.visible;
-      if (UIApplication.shared.supports({ asset: symbol.asset })) {
-        symbolArt.root.add({ sublayer: symbol });
-      }
+      // if (UIApplication.shared.supports({ asset: symbol.asset })) {
+      symbolArt.root.add({ sublayer: symbol });
+      // }
     }
     return symbolArt;
   }

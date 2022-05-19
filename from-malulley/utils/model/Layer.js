@@ -30,6 +30,7 @@
  */
 
 const Identifiable = require('./Identifiable');
+const Container = require('./Container');
 
 module.exports = class Layer extends Identifiable {
   _name = '';
@@ -74,6 +75,7 @@ module.exports = class Layer extends Identifiable {
       valid = typeof name === 'string';
     }
     if (valid && typeof parent !== 'undefined') {
+      console.dir(parent);
       valid = parent === null || parent instanceof Container;
     }
     return valid;
