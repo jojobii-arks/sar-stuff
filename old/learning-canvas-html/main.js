@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const example = data.layers.reverse();
 
 const canvas = document.querySelector('canvas');
@@ -7,40 +8,52 @@ for (let i = 0; i < example.length; i++) {
   const e = example[i];
   const corners = [
     {
-      x: e.points.topLeft.x,
-      y: e.points.topLeft.y
+      x: e.points.topLeft.x * 2,
+      y: e.points.topLeft.y * 2
     },
     {
-      x: e.points.topRight.x,
-      y: e.points.topRight.y
+      x: e.points.topRight.x * 2,
+      y: e.points.topRight.y * 2
     },
     {
-      x: e.points.bottomRight.x,
-      y: e.points.bottomRight.y
+      x: e.points.bottomRight.x * 2,
+      y: e.points.bottomRight.y * 2
     },
     {
-      x: e.points.bottomLeft.x,
-      y: e.points.bottomLeft.y
+      x: e.points.bottomLeft.x * 2,
+      y: e.points.bottomLeft.y * 2
     }
   ];
-  const img = new Image();
-  img.src = `../res/assets/${e.props.textureIndex}.png`;
-  img.onload = () => {
+  let src = `../res/assets/${e.props.textureIndex + 1}.png`;
+  loadImagePromise(src).then(img => {
+    console.log('layer index:', i);
     const tempCanvas = render(img, corners);
-    tempCtx = tempCanvas.getContext('2d');
+    const tempCtx = tempCanvas.getContext('2d');
 
-    console.log(
-      `rgb(${e.props.colorR * 4}, ${e.props.colorG * 4}, ${e.props.colorB * 4})`
-    );
+    // console.log(
+    //   `rgb(${e.props.colorR * 4}, ${e.props.colorG * 4}, ${e.props.colorB * 4})`
+    // );
     tempCtx.drawImage(tempCanvas, 0, 0);
+
     tempCtx.globalCompositeOperation = 'source-in';
+    tempCtx.globalAlpha = e.props.transparency / 7;
+
     tempCtx.fillStyle = `rgb(${e.props.colorR * 4}, ${e.props.colorG * 4}, ${
       e.props.colorB * 4
     })`;
-    tempCtx.globalAlpha = e.props.transparency / 7;
     tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.width);
     ctx.drawImage(tempCanvas, 0, 0);
-  };
+  });
+  console.log('looping now');
+}
+
+function loadImagePromise(src) {
+  return new Promise((resolve, reject) => {
+    let img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject;
+    img.src = src;
+  });
 }
 
 function render(img, corners) {
@@ -63,8 +76,8 @@ function render(img, corners) {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  for (y = 0; y < h; y += step) {
-    for (x = 0; x < w; x += step) {
+  for (let y = 0; y < h; y += step) {
+    for (let x = 0; x < w; x += step) {
       y1c = lerp(corners[0], corners[3], y / h);
       y2c = lerp(corners[1], corners[2], y / h);
       y1n = lerp(corners[0], corners[3], (y + step) / h);

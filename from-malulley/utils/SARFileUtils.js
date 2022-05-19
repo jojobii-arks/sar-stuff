@@ -127,9 +127,10 @@ module.exports = class SARFileUtils {
       }
       let cursor = new Cursor(decryptedFileDataArrayBuffer);
       let fileContent = cursor.parse();
-      let symbolArt = SARFileUtils._convertToSymbolArt({
-        fileContent: fileContent
-      });
+      return fileContent;
+      // let symbolArt = SARFileUtils._convertToSymbolArt({
+      //   fileContent: fileContent
+      // });
     } catch (e) {
       console.error(e);
     }

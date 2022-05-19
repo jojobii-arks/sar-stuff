@@ -12,5 +12,6 @@ fsp
   })
   .then(() => {
     console.log(symbolArt.layers);
+    fsp.writeFile('./output.json', JSON.stringify(symbolArt, null, 2));
   })
   .catch(console.error);
